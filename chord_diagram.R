@@ -1,3 +1,6 @@
+### Task: Chord diagram of Julia's flight routes
+### Author: Ricky
+
 # Libraries
 library(tidyverse)
 library(viridis)
@@ -5,11 +8,7 @@ library(patchwork)
 library(hrbrthemes)
 library(circlize)
 
-
-# short names
-# Load dataset from github
-# short names
-# I need a long format
+# Read data
 data=read.csv(file = "Chord_flights.csv",sep =",",header=TRUE,row.names = 1)
 
 colnames(data) <- c("BNE", "HKG", "HNL", "INC",  "LAS","LAX",   "MIA", "NKG", "PVG", "SFO", "SJC","SJO","SYD","TAO","XNN","YVR","YYZ")
