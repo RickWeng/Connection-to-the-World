@@ -2,6 +2,5 @@
 Julia's flight routes since 2010
 
 # Flight Routes
-![](http://example.com/logo.png)
 
-![optional caption text](figures/img.png)
+![](https://github.com/RickWeng/Connection-to-the-World/blob/master/Flightblack.png)
