@@ -89,7 +89,7 @@ p=ggplot() +
   coord_equal() 
 p
 # Save 
-ggsave("Flightstransparent.png", width = 36, height = 18,units = "in", dpi = 500, bg="transparent")
-ggsave("Flightsblack.png", width = 36, height = 18,units = "in", dpi = 500, bg="black")
+ggsave("Flighttransparent.png", width = 36, height = 18,units = "in", dpi = 500, bg="transparent")
+ggsave("Flightblack.png", width = 36, height = 18,units = "in", dpi = 300, bg="black")
 dev.copy2pdf(file = paste0("ff",".pdf"), height=4, width=6)
 dev.copy(png, file = paste0("ff",".png"), width=36, height=18, units="in", res=600)
