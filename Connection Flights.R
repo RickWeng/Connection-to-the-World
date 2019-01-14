@@ -1,3 +1,6 @@
+### Task: Mapping Julia's flight routes since 2010
+### Author: Ricky
+
 # Libraries
 library(tidyverse)
 library(jpeg)
@@ -9,8 +12,6 @@ install.packages("extrafont")
 library(extrafont)
 font_import()
 
-# Load
-library(wesanderson)
 # Download NASA night lights image
 download.file("https://www.nasa.gov/specials/blackmarble/2016/globalmaps/BlackMarble_2016_01deg.jpg", 
               destfile = "BlackMarble_2016_01deg.jpg", mode = "wb")
@@ -18,6 +19,8 @@ download.file("https://www.nasa.gov/specials/blackmarble/2016/globalmaps/BlackMa
 earth <- readJPEG("BlackMarble_2016_01deg.jpg", native = TRUE)
 earth <- rasterGrob(earth, interpolate = TRUE)
 
+# Set work space
+setwd=("U:/)
 
 attach(ConnectionFlights_Julia)
 # Count how many times we have each unique connexion + order by importance
@@ -40,7 +43,7 @@ data_for_connection=function(dep_lon, dep_lat, arr_lon, arr_lat,group){
   return(inter)
 }
 
-# Création d'un dataframe complet avec les points de toutes les lignes à faire.
+# Create ready to plot data frame
 data_ready_plot=data.frame()
 for(i in c(1:nrow(ConnectionFlights_Julia))){
   tmp=data_for_connection(ConnectionFlights_Julia$HomeLon[i], ConnectionFlights_Julia$HomeLat[i], ConnectionFlights_Julia$TravelLon[i], ConnectionFlights_Julia$TravelLat[i],i )
@@ -49,6 +52,7 @@ for(i in c(1:nrow(ConnectionFlights_Julia))){
   data_ready_plot=rbind(data_ready_plot, tmp)
 }
 data_ready_plot$Time=factor(data_ready_plot$Time, levels=c("2010","2014","2015","2016","2018"))
+
 # Plot
 p=ggplot() +
   annotation_custom(earth, xmin = -180, xmax = 180, ymin = -90, ymax = 90) +
@@ -62,7 +66,7 @@ p=ggplot() +
     legend.position="none",
     panel.background = element_rect(fill = "black", colour = "black"), 
     panel.spacing=unit(c(0,0,0,0), "null"),
-    plot.margin=grid::unit(c(0,0,0,0), "cm"),
+    plot.margin=grid::unit(c(0,0,0,0), "cm")
   ) +
   geom_text_repel()+
   annotate("text", x = -150, y = 3, hjust = 0, size = 14, 
@@ -75,8 +79,7 @@ p=ggplot() +
            label = paste("2016"), color = "#075aaa", family = "Baker Signet Std") + 
   annotate("text", x = -150, y = -25, hjust = 0, size = 14, 
            label = paste("2018"), color = "#ff0000", family = "Baker Signet Std") +
-  
-  
+    
   ggplot2::annotate("text", x = -150, y = -45, hjust = 0, size = 11, label = paste("Julia's Flight Routes 2010-2018"), color = "white") +
   ggplot2::annotate("text", x = -150, y = -51, hjust = 0, size = 8, label = paste("Ricky Weng || NASA.gov"), color = "white", alpha = 0.5) +
   ggplot2::annotate("text", x = -150, y = -60, hjust = 0, size = 6, label = paste("Air Canada || American Airlines || Beijing Capital Airlines || China Eastern Airlines || Delta Air Lines || WestJet"), color = "white", alpha = 0.5)+
@@ -85,7 +88,7 @@ p=ggplot() +
   scale_x_continuous(expand = c(0.006, 0.006)) +
   coord_equal() 
 p
-# Save at PNG
+# Save 
 ggsave("Flightstransparent.png", width = 36, height = 18,units = "in", dpi = 500, bg="transparent")
 ggsave("Flightsblack.png", width = 36, height = 18,units = "in", dpi = 500, bg="black")
 dev.copy2pdf(file = paste0("ff",".pdf"), height=4, width=6)
