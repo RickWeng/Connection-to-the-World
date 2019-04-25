@@ -1,5 +1,5 @@
 # Connection to the World
-Julia's flight routes since 2010
+My girlfriend's flight routes since 2010
 
 ## Flight Routes
 
