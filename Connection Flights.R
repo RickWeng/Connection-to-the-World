@@ -21,8 +21,8 @@ earth <- rasterGrob(earth, interpolate = TRUE)
 
 # Set work space
 setwd("U:/")
+ConnectionFlights_Julia <- read.csv("ConnectionFlights_Julia.csv")
 
-attach(ConnectionFlights_Julia)
 # Count how many times we have each unique connexion + order by importance
 summary <- ConnectionFlights_Julia %>% 
   dplyr::count(HomeLat, HomeLon, Home, TravelLat, TravelLon, Travel) %>%
